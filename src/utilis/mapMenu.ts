@@ -27,7 +27,6 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   }
 
   _recurseGetRoute(userMenus)
-  console.log(routes)
 
   return routes
 }

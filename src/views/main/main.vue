@@ -8,7 +8,11 @@
         <el-header class="header" height="60px">
           <NavHeader />
         </el-header>
-        <el-main><router-view></router-view></el-main>
+        <el-main>
+          <div class="router-wrapper">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
