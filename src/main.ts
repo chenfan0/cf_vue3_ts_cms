@@ -5,7 +5,7 @@ import '@/assets/css/index.less'
 import router from '@/router'
 import store from '@/store'
 import registerElement from './element-plus'
-import cfRequest from './network'
+import { initialLoginStore } from '@/store'
 
 import App from './App.vue'
 
@@ -14,9 +14,6 @@ const app = createApp(App)
 app.use(registerElement) // 注册element-plus组件
 app.use(router)
 app.use(store)
-
-cfRequest.request({
-  url: '/home/multidata'
-})
+initialLoginStore(store)
 
 app.mount('#app')

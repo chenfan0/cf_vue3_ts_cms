@@ -2,14 +2,14 @@
   <div class="login-panel">
     <h2 class="title">后台管理系统</h2>
 
-    <el-tabs class="el-tabs" type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs class="el-tabs" type="border-card" stretch v-model="loginMode">
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i>账号登录</span>
         </template>
-        <AccountPanel />
+        <AccountPanel ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane label="手机登录">
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i>手机登录</span>
         </template>
@@ -18,21 +18,36 @@
     </el-tabs>
 
     <div class="handle-password">
-      <el-checkbox v-model="isRemenber" label="记住密码"></el-checkbox>
+      <el-checkbox v-model="isRemember" label="记住密码"></el-checkbox>
       <el-link type="primary">忘记密码</el-link>
     </div>
 
-    <el-button class="login-btn" type="primary">立即登录</el-button>
+    <el-button class="login-btn" type="primary" @click="handleLoginClick">立即登录</el-button>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+import { AccountType } from '../type'
+
 import AccountPanel from './account-panel.vue'
 import PhonePanel from './phone-panel.vue'
 
 // 记录是否选择记住密码
-const isRemenber = ref(true)
+const isRemember = ref(true)
+// 获取AccountPanel组件
+const accountRef = ref<AccountType>()
+// 记录登录模式
+const loginMode = ref('account')
+
+// 处理点击立即登录按钮函数
+function handleLoginClick() {
+  if (loginMode.value === 'account') {
+    accountRef.value?.handleAccountLogin(isRemember.value)
+  } else {
+    console.log('phone login')
+  }
+}
 </script>
 
 <style lang="less" scoped>

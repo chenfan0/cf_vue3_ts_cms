@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
 
+import localCatch from '@/utilis/cache'
+
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/main'
   },
   {
     path: '/main',
@@ -19,6 +21,15 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to) => {
+  if (to.path !== '/login') {
+    const token = localCatch.getCatch('token')
+    if (!token) {
+      return '/login'
+    }
+  }
 })
 
 export default router
