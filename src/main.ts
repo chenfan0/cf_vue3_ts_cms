@@ -12,7 +12,7 @@ import App from './App.vue'
 const app = createApp(App)
 
 app.use(registerElement) // 注册element-plus组件
-app.use(router)
 app.use(store)
 initialLoginStore(store)
+app.use(router)
 app.mount('#app')

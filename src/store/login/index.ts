@@ -4,6 +4,7 @@ import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } fr
 import { ILoginParamsType } from '@/network/login/type'
 import localCatch from '@/utilis/cache'
 import router from '@/router'
+import { mapMenusToRoutes } from '@/utilis/mapMenu'
 
 import { IRootStateType } from '../type'
 import { ILoginStateType } from './type'
@@ -26,6 +27,11 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
     },
     changeUserMenu(state, payload) {
       state.userMenu = payload
+      // 进行动态路由注册
+      const routes = mapMenusToRoutes(state.userMenu)
+      if (routes) {
+        routes.forEach((route) => router.addRoute('main', route))
+      }
     }
   },
   getters: {},

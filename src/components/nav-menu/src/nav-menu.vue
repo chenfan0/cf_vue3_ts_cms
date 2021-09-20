@@ -26,7 +26,11 @@
             </template>
             <!-- 二级菜单 -->
             <template v-for="subItem in item.children" :key="subItem.id">
-              <el-menu-item class="el-menu-item" :index="subItem.id + ''">
+              <el-menu-item
+                class="el-menu-item"
+                :index="subItem.id + ''"
+                @click="handleMenuClick(subItem.url)"
+              >
                 {{ subItem.name }}
               </el-menu-item>
             </template>
@@ -48,11 +52,17 @@ import { useStore } from 'vuex'
 
 import { IRootStateType } from '@/store/type'
 import emitter from '@/utilis/eventBus'
+import router from '@/router'
 
 const store = useStore<IRootStateType>()
 const userMenu = computed(() => store.state.login?.userMenu)
 // 记录菜单折叠状态
 const isMenuFold = ref(false)
+
+// 处理点击菜单进行路由跳转
+function handleMenuClick(url: string) {
+  router.push(url)
+}
 
 // 监听是否点击折叠按钮
 emitter.on('clickFold', (isFold) => {
