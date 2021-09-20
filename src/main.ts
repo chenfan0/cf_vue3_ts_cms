@@ -15,5 +15,4 @@ app.use(registerElement) // 注册element-plus组件
 app.use(router)
 app.use(store)
 initialLoginStore(store)
-
 app.mount('#app')

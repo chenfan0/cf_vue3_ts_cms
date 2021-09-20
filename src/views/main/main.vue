@@ -1,13 +1,58 @@
 <template>
   <div class="main">
-    <el-button type="primary">主要按钮</el-button>
-    <el-button type="success">成功按钮</el-button>
-    <el-button type="info">信息按钮</el-button>
-    <el-button type="warning">警告按钮</el-button>
-    {{ $store.state.name }}
-    <!-- <el-button type="danger">危险按钮</el-button> -->
+    <el-container class="main-container">
+      <el-aside :width="asideWidth" class="el-aside">
+        <NavMenu />
+      </el-aside>
+      <el-container>
+        <el-header class="header" height="60px">
+          <NavHeader />
+        </el-header>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-<style lang="less" scoped></style>
+import emitter from '@/utilis/eventBus'
+
+import NavMenu from '@/components/nav-menu'
+import NavHeader from '@/components/nav-header'
+
+// 设置aside的宽度
+const asideWidth = ref('210px')
+
+// 监听是否点击折叠菜单按钮
+emitter.on('clickFold', (isFold) => {
+  isFold ? (asideWidth.value = '60px') : (asideWidth.value = '210px')
+})
+</script>
+
+<style lang="less" scoped>
+.main {
+  height: 100%;
+  background-color: #f0f2f5;
+
+  .main-container {
+    height: 100%;
+
+    .el-aside {
+      transition: all 0.4s;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .header {
+      background-color: #fff;
+    }
+
+    .router-wrapper {
+      background-color: #fff;
+      border-radius: 5px;
+    }
+  }
+}
+</style>

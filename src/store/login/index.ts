@@ -33,19 +33,16 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
     async accountLoginAction({ commit }, payload: ILoginParamsType) {
       // 1 实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
-      console.log(loginResult)
       commit('changeToken', loginResult.data.token)
       localCatch.setCatch('token', loginResult.data.token)
 
       // 2 获取用户信息
       const userInfo = await requestUserInfoById(loginResult.data.id)
-      console.log(userInfo.data)
       commit('changeUserInfo', userInfo.data)
       localCatch.setCatch('userInfo', userInfo.data)
 
       // 3 获取用户权限菜单
       const userMenu = await requestUserMenusByRoleId(loginResult.data.id)
-      console.log(userMenu.data)
       commit('changeUserMenu', userMenu.data)
       localCatch.setCatch('userMenu', userMenu.data)
 
