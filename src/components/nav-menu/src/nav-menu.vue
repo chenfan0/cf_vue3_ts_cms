@@ -9,6 +9,7 @@
 
     <el-menu
       class="el-menu"
+      :default-active="defaultValue + ''"
       background-color="#001529"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
@@ -49,15 +50,25 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
 
 import { IRootStateType } from '@/store/type'
 import emitter from '@/utilis/eventBus'
-import router from '@/router'
+import { mapPathToMenuId } from '@/utilis/mapMenu'
 
 const store = useStore<IRootStateType>()
+const router = useRouter()
+const route = useRoute()
+
 const userMenu = computed(() => store.state.login?.userMenu)
 // 记录菜单折叠状态
 const isMenuFold = ref(false)
+// 记录默认展开的菜单项
+const defaultValue = ref('2')
+// 当前路径
+const path = route.path
+
+defaultValue.value = mapPathToMenuId(userMenu.value, path)
 
 // 处理点击菜单进行路由跳转
 function handleMenuClick(url: string) {

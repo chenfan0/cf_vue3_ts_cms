@@ -2,6 +2,7 @@ import type { App } from 'vue'
 
 import {
   ElAvatar,
+  ElBreadcrumb,
   ElButton,
   ElCheckbox,
   ElCol,
@@ -31,7 +32,8 @@ const elComponent: any[] = [
   ElRow,
   ElCol,
   ElDatePicker,
-  ElSelect
+  ElSelect,
+  ElBreadcrumb
 ]
 
 export default function registerElement(app: App): void {

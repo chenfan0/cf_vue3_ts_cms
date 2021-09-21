@@ -1,12 +1,13 @@
 <template>
-  <div class="">
-    <CFForm v-bind="formItems" />
+  <div class="user">
+    <PageSearch />
   </div>
 </template>
 <script lang="ts" setup>
-import { formItems } from './config/formConfig'
-
-import CFForm from '@/base-ui/form'
+import PageSearch from '@/components/page-search'
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.user {
+}
+</style>

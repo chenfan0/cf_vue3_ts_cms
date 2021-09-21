@@ -1,5 +1,8 @@
 <template>
   <div class="cf-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
@@ -9,7 +12,8 @@
                 <el-input
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
-                  :showpassword="item.type === 'password'"
+                  :showPassword="item.type === 'password'"
+                  v-model="formData[item.field]"
                 >
                 </el-input>
               </el-form-item>
@@ -17,7 +21,11 @@
 
             <template v-else-if="item.type === 'select'">
               <el-form-item :label="item.label" :style="itemStyle">
-                <el-select style="width: 100%" :placeholder="item.placeholder">
+                <el-select
+                  style="width: 100%"
+                  :placeholder="item.placeholder"
+                  v-model="formData[item.field]"
+                >
                   <template v-for="iten in item.options" :key="iten.label">
                     <el-option v-bind="iten"></el-option>
                   </template>
@@ -27,7 +35,12 @@
 
             <template v-else-if="item.type === 'datePicker'">
               <el-form-item :label="item.label" :style="itemStyle">
-                <el-date-picker type="daterange" style="width: 100%" v-bind="item.otherOptions">
+                <el-date-picker
+                  type="daterange"
+                  style="width: 100%"
+                  v-bind="item.otherOptions"
+                  v-model="formData[item.field]"
+                >
                 </el-date-picker>
               </el-form-item>
             </template>
@@ -35,14 +48,21 @@
         </template>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, PropType } from 'vue'
+import { defineProps, PropType, ref, watch, defineEmits } from 'vue'
 
 import { IFormItemDataType } from '../type'
 
-defineProps({
+const props = defineProps({
+  modelValue: {
+    type: Object,
+    require: true
+  },
   formItems: {
     type: Array as PropType<IFormItemDataType[]>,
     default: () => []
@@ -66,6 +86,21 @@ defineProps({
     })
   }
 })
+
+const emits = defineEmits(['update:modelValue'])
+
+const formData = ref({ ...props.modelValue })
+watch(
+  formData.value,
+  (newValue) => {
+    console.log(1111)
+
+    emits('update:modelValue', newValue)
+  },
+  {
+    deep: true
+  }
+)
 </script>
 
 <style lang="less" scoped>

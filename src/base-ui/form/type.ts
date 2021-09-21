@@ -1,6 +1,7 @@
 type FormItemType = 'input' | 'select' | 'password' | 'datePicker'
-
+export type FieldType = 'id' | 'select' | 'password' | 'createTime' | 'userName'
 export interface IFormItemDataType {
+  field: FieldType
   label: string
   type: FormItemType
   rules?: any

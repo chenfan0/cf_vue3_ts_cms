@@ -1,5 +1,10 @@
 import { RouteRecordRaw } from 'vue-router'
 
+import { IBreadCrumb } from '@/base-ui/breadcrumb'
+
+// 保存第一个路由对象，当用户访问 /main时跳转到该对象
+export let firstMenu: any = null
+
 export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   const routes: RouteRecordRaw[] = []
   const allRoutes: RouteRecordRaw[] = []
@@ -20,6 +25,9 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
       } else if (menus[menu].type === 2) {
         const route = allRoutes.find((route) => route.path === menus[menu].url)
         if (route) {
+          if (!firstMenu) {
+            firstMenu = route
+          }
           routes.push(route)
         }
       }
@@ -29,4 +37,27 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   _recurseGetRoute(userMenus)
 
   return routes
+}
+
+// 通过当前路径获取展开菜单项的id
+export function mapPathToMenuId(userMenus: any[], path: string, breadcrumb?: IBreadCrumb[]): any {
+  for (const menu of userMenus) {
+    if (menu.type === 1) {
+      const returnMenu = mapPathToMenuId(menu.children, path)
+      if (returnMenu) {
+        if (breadcrumb) {
+          breadcrumb.push({ name: menu.name })
+          breadcrumb.push({ name: returnMenu.name })
+          return breadcrumb
+        }
+        return returnMenu.id
+      }
+    } else if (menu.type === 2 && menu.url === path) {
+      return menu
+    }
+  }
+}
+
+export function mapPathToBreadcrumb(userMenus: any[], path: string, breadcrumb: IBreadCrumb[]) {
+  return mapPathToMenuId(userMenus, path, breadcrumb)
 }
