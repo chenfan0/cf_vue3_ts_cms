@@ -1,5 +1,5 @@
 import { IFormType } from '@/base-ui/form/type'
-export const formItems: IFormType = {
+export const formSearchConfig: IFormType = {
   formItems: [
     {
       field: 'id',
@@ -12,12 +12,6 @@ export const formItems: IFormType = {
       label: '用户名',
       type: 'input',
       placeholder: '请输入用户名'
-    },
-    {
-      field: 'password',
-      label: '密码',
-      type: 'password',
-      placeholder: '请输入密码'
     },
     {
       field: 'select',

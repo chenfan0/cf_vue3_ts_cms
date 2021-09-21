@@ -1,6 +1,6 @@
 <template>
   <div class="page-search">
-    <CFForm v-bind="formItems" v-model="formData">
+    <CFForm v-bind="formSearchConfig" v-model="formData">
       <template #header>
         <h1 class="header">检索</h1>
       </template>
@@ -14,11 +14,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-import { formItems } from '../config'
+import { ref, defineProps } from 'vue'
 
 import CFForm from '@/base-ui/form'
+
+defineProps({
+  formSearchConfig: {
+    type: Object,
+    required: true
+  }
+})
 
 const formData = ref({
   id: '',

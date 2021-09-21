@@ -6,11 +6,12 @@ import router from '@/router'
 import store from '@/store'
 import registerElement from './element-plus'
 import { initialLoginStore } from '@/store'
+import { registerGlobalProps } from '@/golbal'
 
 import App from './App.vue'
 
 const app = createApp(App)
-
+app.use(registerGlobalProps)
 app.use(registerElement) // 注册element-plus组件
 app.use(store)
 initialLoginStore(store)

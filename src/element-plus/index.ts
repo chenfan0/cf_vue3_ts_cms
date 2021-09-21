@@ -13,8 +13,10 @@ import {
   ElInput,
   ElLink,
   ElMenu,
+  ElPagination,
   ElRow,
   ElSelect,
+  ElTable,
   ElTabs
 } from 'element-plus'
 
@@ -33,7 +35,9 @@ const elComponent: any[] = [
   ElCol,
   ElDatePicker,
   ElSelect,
-  ElBreadcrumb
+  ElBreadcrumb,
+  ElTable,
+  ElPagination
 ]
 
 export default function registerElement(app: App): void {

@@ -1,12 +1,7 @@
 import cfRequest from '../index'
 
-import {
-  ILoginParamsType,
-  IResultType,
-  ILoingResultDataType,
-  IUserInfoResultType,
-  IUserMenuType
-} from './type'
+import { ILoginParamsType, ILoingResultDataType, IUserInfoResultType, IUserMenuType } from './type'
+import { IResultType } from '../type'
 
 enum LoginApi {
   login = '/login',

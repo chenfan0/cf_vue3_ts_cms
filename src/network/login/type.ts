@@ -3,11 +3,6 @@ export interface ILoginParamsType {
   password: string
 }
 
-export interface IResultType<T = any> {
-  code: number
-  data: T
-}
-
 export interface ILoingResultDataType {
   id: number
   name: string
