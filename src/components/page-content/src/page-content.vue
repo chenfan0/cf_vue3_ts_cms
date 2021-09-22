@@ -3,7 +3,7 @@
     <CFTable :list-data="dataList" v-bind="tableContentConfig">
       <template #header>
         <div class="header">
-          <div class="title">用户列表</div>
+          <div class="title">{{ tableContentConfig.title }}</div>
           <el-button type="primary" size="medium">创建用户</el-button>
         </div>
       </template>
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, defineProps, PropType } from 'vue'
+import { computed, defineProps, PropType, defineExpose } from 'vue'
 import { useStore } from 'vuex'
 
 import { IRootStateType } from '@/store/type'
@@ -48,13 +48,23 @@ const props = defineProps({
 
 const store = useStore<IRootStateType>()
 // 发送获取列表数据的网络请求
-store.dispatch('system/getPageListAction', {
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 10
-  }
+function getListData(queryInfos: any = {}) {
+  store.dispatch('system/getPageListAction', {
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+      ...queryInfos
+    }
+  })
+}
+getListData()
+
+defineExpose({
+  getListData
 })
+
+// 从vuex中获取数据
 const dataList: any = computed(() => (store.state.system as any)[props.pageName + 'List'])
 </script>
 

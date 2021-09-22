@@ -1,6 +1,7 @@
 import { ITableContentConfig } from '@/components/page-content'
 
 export const tableContentConfig: ITableContentConfig = {
+  title: '角色列表',
   propList: [
     {
       prop: 'name',

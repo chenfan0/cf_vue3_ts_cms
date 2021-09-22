@@ -2,35 +2,13 @@ import { IFormType } from '@/base-ui/form/type'
 export const formSearchConfig: IFormType = {
   formItems: [
     {
-      field: 'id',
-      label: 'id',
+      field: 'name',
+      label: '职位名称',
       type: 'input',
-      placeholder: '请输入id'
+      placeholder: '请输入职位名称'
     },
     {
-      field: 'userName',
-      label: '用户名',
-      type: 'input',
-      placeholder: '请输入用户名'
-    },
-    {
-      field: 'select',
-      label: '请选择',
-      type: 'select',
-      placeholder: '请选择',
-      options: [
-        {
-          label: '篮球',
-          value: 'basketball'
-        },
-        {
-          label: '足球',
-          value: 'football'
-        }
-      ]
-    },
-    {
-      field: 'createTime',
+      field: 'createAt',
       label: '创建时间',
       type: 'datePicker',
       otherOptions: {
