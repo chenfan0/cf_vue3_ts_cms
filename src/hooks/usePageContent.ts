@@ -10,7 +10,6 @@ export function usePageContent() {
   }
 
   function handleQueryClick(queryInfo: any = {}) {
-    console.log(11)
     ;(pageContentRef.value as any).getListData(queryInfo)
   }
   return [pageContentRef, handleQueryClick, handleResetClick]

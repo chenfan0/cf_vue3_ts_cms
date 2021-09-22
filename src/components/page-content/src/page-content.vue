@@ -1,6 +1,12 @@
 <template>
   <div class="page-content">
-    <CFTable :list-data="dataList" v-bind="tableContentConfig">
+    <CFTable
+      :list-data="dataList"
+      :data-list-count="dataListCount"
+      v-bind="tableContentConfig"
+      @current-page-change="handleCurrentPageChange"
+      @page-size-change="handlePageSizeChange"
+    >
       <template #header>
         <div class="header">
           <div class="title">{{ tableContentConfig.title }}</div>
@@ -22,6 +28,9 @@
       <template #operation>
         <el-button size="mini" icon="el-icon-edit" type="text">编辑</el-button>
         <el-button size="mini" icon="el-icon-delete" type="text">删除</el-button>
+      </template>
+      <template v-for="item in otherPropsSlot" :key="item.prop" #[item.prop]="scope">
+        <slot :name="item.prop" :row="scope.row"></slot>
       </template>
     </CFTable>
   </div>
@@ -60,12 +69,29 @@ function getListData(queryInfos: any = {}) {
 }
 getListData()
 
+function handleCurrentPageChange(currentPage: number, size: number) {
+  getListData({ offset: (currentPage - 1) * size, size })
+}
+
+function handlePageSizeChange(size: number) {
+  getListData({ size })
+}
+
+const otherPropsSlot = props.tableContentConfig.propList.filter((item) => {
+  if (item.prop === 'enable') return false
+  if (item.prop === 'createAt') return false
+  if (item.prop === 'updateAt') return false
+  return true
+})
+console.log(otherPropsSlot)
+
 defineExpose({
   getListData
 })
 
 // 从vuex中获取数据
 const dataList: any = computed(() => (store.state.system as any)[props.pageName + 'List'])
+const dataListCount = computed(() => (store.state.system as any)[props.pageName + 'Count'])
 </script>
 
 <style lang="less" scoped>

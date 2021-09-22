@@ -11,7 +11,13 @@ const systemModule: Module<ISystemType, IRootStateType> = {
       usersCount: 0,
       usersList: [],
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      departmentList: [],
+      departmentCount: 0,
+      menuList: [],
+      menuCount: 0,
+      goodsList: [],
+      goodsCount: 0
     }
   },
   getters: {},
@@ -27,6 +33,24 @@ const systemModule: Module<ISystemType, IRootStateType> = {
     },
     changeRoleCount(state, payload) {
       state.roleCount = payload
+    },
+    changeDepartmentList(state, payload) {
+      state.departmentList = payload
+    },
+    changeDepartmentCount(state, payload) {
+      state.departmentCount = payload
+    },
+    changeMenuList(state, payload) {
+      state.menuList = payload
+    },
+    changeMenuCount(state, payload) {
+      state.menuCount = payload
+    },
+    changeGoodsList(state, payload) {
+      state.goodsList = payload
+    },
+    changeGoodsCount(state, payload) {
+      state.goodsCount = payload
     }
   },
   actions: {
@@ -38,8 +62,8 @@ const systemModule: Module<ISystemType, IRootStateType> = {
 
       const pageListResult = await getPageListData(pageUrl, payload.queryInfo)
 
-      commit(commitCountName, pageListResult.data.totalCount)
-      commit(commitListName, pageListResult.data.list)
+      commit(commitCountName, pageListResult?.data.totalCount)
+      commit(commitListName, pageListResult?.data.list)
     }
   }
 }

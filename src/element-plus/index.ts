@@ -10,6 +10,7 @@ import {
   ElDatePicker,
   ElDropdown,
   ElForm,
+  ElImage,
   ElInput,
   ElLink,
   ElMenu,
@@ -37,7 +38,8 @@ const elComponent: any[] = [
   ElSelect,
   ElBreadcrumb,
   ElTable,
-  ElPagination
+  ElPagination,
+  ElImage
 ]
 
 export default function registerElement(app: App): void {

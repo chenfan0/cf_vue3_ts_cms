@@ -1,0 +1,27 @@
+import { IFormType } from '@/base-ui/form/type'
+export const formSearchConfig: IFormType = {
+  formItems: [
+    {
+      field: 'id',
+      label: 'id',
+      type: 'input',
+      placeholder: '请输入id'
+    },
+    {
+      field: 'name',
+      label: '菜单名称',
+      type: 'input',
+      placeholder: '请输入菜单名称'
+    },
+    {
+      field: 'createAt',
+      label: '创建时间',
+      type: 'datePicker',
+      otherOptions: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期'
+      }
+    }
+  ]
+}
