@@ -34,7 +34,5 @@ export const tableContentConfig: ITableContentConfig = {
       label: '操作',
       minWidth: '100'
     }
-  ],
-  showIndex: true,
-  showSelection: true
+  ]
 }

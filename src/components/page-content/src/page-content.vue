@@ -10,7 +10,7 @@
       <template #header>
         <div class="header">
           <div class="title">{{ tableContentConfig.title }}</div>
-          <el-button type="primary" size="medium">创建用户</el-button>
+          <el-button type="primary" size="medium" v-if="isCreate">新建</el-button>
         </div>
       </template>
 
@@ -26,8 +26,8 @@
         <strong>{{ $filter.format(scope.row.createAt) }}</strong>
       </template>
       <template #operation>
-        <el-button size="mini" icon="el-icon-edit" type="text">编辑</el-button>
-        <el-button size="mini" icon="el-icon-delete" type="text">删除</el-button>
+        <el-button size="mini" icon="el-icon-edit" type="text" v-if="isUpdate">编辑</el-button>
+        <el-button size="mini" icon="el-icon-delete" type="text" v-if="isDelete">删除</el-button>
       </template>
       <template v-for="item in otherPropsSlot" :key="item.prop" #[item.prop]="scope">
         <slot :name="item.prop" :row="scope.row"></slot>
@@ -41,6 +41,8 @@ import { useStore } from 'vuex'
 
 import { IRootStateType } from '@/store/type'
 import { ITableContentConfig } from '@/components/page-content'
+
+import { usePermission } from '@/hooks/usePermission'
 
 import CFTable from '@/base-ui/table'
 
@@ -56,8 +58,16 @@ const props = defineProps({
 })
 
 const store = useStore<IRootStateType>()
+
+// 获取用户权限
+const isCreate = usePermission(props.pageName, 'create')
+const isUpdate = usePermission(props.pageName, 'update')
+const isDelete = usePermission(props.pageName, 'delete')
+const isQuery = usePermission(props.pageName, 'query')
+
 // 发送获取列表数据的网络请求
 function getListData(queryInfos: any = {}) {
+  if (!isQuery) return
   store.dispatch('system/getPageListAction', {
     pageName: props.pageName,
     queryInfo: {
@@ -77,13 +87,14 @@ function handlePageSizeChange(size: number) {
   getListData({ size })
 }
 
+// 动态获取插槽
 const otherPropsSlot = props.tableContentConfig.propList.filter((item) => {
   if (item.prop === 'enable') return false
   if (item.prop === 'createAt') return false
   if (item.prop === 'updateAt') return false
+  if (item.prop === 'operation') return false
   return true
 })
-console.log(otherPropsSlot)
 
 defineExpose({
   getListData

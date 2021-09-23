@@ -4,7 +4,7 @@ import { accountLoginRequest, requestUserInfoById, requestUserMenusByRoleId } fr
 import { ILoginParamsType } from '@/network/login/type'
 import localCatch from '@/utilis/cache'
 import router from '@/router'
-import { mapMenusToRoutes } from '@/utilis/mapMenu'
+import { mapMenusToRoutes, mapMenuToPermission } from '@/utilis/mapMenu'
 
 import { IRootStateType } from '../type'
 import { ILoginStateType } from './type'
@@ -15,7 +15,8 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
     return {
       token: '',
       userInfo: '',
-      userMenu: []
+      userMenu: [],
+      userPermission: []
     }
   },
   mutations: {
@@ -32,6 +33,8 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
       if (routes) {
         routes.forEach((route) => router.addRoute('main', route))
       }
+      // 获取用户权限
+      state.userPermission = mapMenuToPermission(state.userMenu)
     }
   },
   getters: {},

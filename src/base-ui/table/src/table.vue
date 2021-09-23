@@ -3,7 +3,14 @@
     <slot name="header">
       <h2>{{ title }}</h2>
     </slot>
-    <el-table :data="listData" border style="width: 100%" align="center">
+    <el-table
+      :data="listData"
+      border
+      style="width: 100%"
+      align="center"
+      row-key="id"
+      :tree-props="{ children: 'children' }"
+    >
       <el-table-column v-if="showSelection" type="selection" align="center"></el-table-column>
       <el-table-column
         v-if="showIndex"

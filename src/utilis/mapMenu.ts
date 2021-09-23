@@ -61,3 +61,16 @@ export function mapPathToMenuId(userMenus: any[], path: string, breadcrumb?: IBr
 export function mapPathToBreadcrumb(userMenus: any[], path: string, breadcrumb: IBreadCrumb[]) {
   return mapPathToMenuId(userMenus, path, breadcrumb)
 }
+
+const permissions: string[] = []
+export function mapMenuToPermission(userMenu: any[] = []) {
+  for (const menu of userMenu) {
+    if (menu.type === 1 || menu.type === 2) {
+      mapMenuToPermission(menu.children ?? [])
+    } else if (menu.type === 3) {
+      permissions.push(menu.permission)
+    }
+  }
+
+  return permissions
+}
