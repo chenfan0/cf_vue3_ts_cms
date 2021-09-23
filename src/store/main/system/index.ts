@@ -2,12 +2,13 @@ import { Module } from 'vuex'
 import { IRootStateType } from '@/store/type'
 import { ISystemType } from './type'
 
-import { getPageListData } from '@/network/system'
+import { getPageListData, deletePageData } from '@/network/system'
 
 const systemModule: Module<ISystemType, IRootStateType> = {
   namespaced: true,
   state() {
     return {
+      totalQueryInfo: { offset: 0, size: 10 },
       usersCount: 0,
       usersList: [],
       roleList: [],
@@ -22,6 +23,9 @@ const systemModule: Module<ISystemType, IRootStateType> = {
   },
   getters: {},
   mutations: {
+    changeTotalQueryInfo(state, payload) {
+      state.totalQueryInfo = { ...state.totalQueryInfo, ...payload }
+    },
     changeUsersCount(state, payload) {
       state.usersCount = payload
     },
@@ -61,9 +65,16 @@ const systemModule: Module<ISystemType, IRootStateType> = {
       const commitListName = `change${pageName.slice(0, 1).toUpperCase() + pageName.slice(1)}List`
 
       const pageListResult = await getPageListData(pageUrl, payload.queryInfo)
+      console.log(pageListResult)
 
       commit(commitCountName, pageListResult?.data.totalCount)
       commit(commitListName, pageListResult?.data.list)
+    },
+    async deletePageDataAction({ dispatch }, payload: any) {
+      const { pageName, id } = payload
+      const url = `/${pageName}/${id}`
+      await deletePageData(url)
+      dispatch('getPageListAction', { pageName })
     }
   }
 }

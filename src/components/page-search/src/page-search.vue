@@ -42,9 +42,8 @@ function handleResetClick() {
   // 重置操作
   for (let key in formDataType) {
     formData.value[key] = ''
-    // 向外发出点击重置按钮事件
   }
-
+  // 向外发出点击重置按钮事件
   emits('resetClick')
 }
 // 处理点击搜索按钮

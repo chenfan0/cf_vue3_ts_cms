@@ -1,4 +1,5 @@
 export interface ISystemType {
+  totalQueryInfo: any
   usersList: any[]
   usersCount: number
   roleList: any[]

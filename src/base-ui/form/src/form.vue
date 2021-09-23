@@ -8,7 +8,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <template v-if="item.type === 'input' || item.type === 'password'">
-              <el-form-item :label="item.label" :style="itemStyle">
+              <el-form-item :label="item.label" :style="itemStyle" v-if="!item.isHidden">
                 <el-input
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
@@ -20,7 +20,7 @@
             </template>
 
             <template v-else-if="item.type === 'select'">
-              <el-form-item :label="item.label" :style="itemStyle">
+              <el-form-item :label="item.label" :style="itemStyle" v-if="!item.isHidden">
                 <el-select
                   style="width: 100%"
                   :placeholder="item.placeholder"
@@ -34,7 +34,7 @@
             </template>
 
             <template v-else-if="item.type === 'datePicker'">
-              <el-form-item :label="item.label" :style="itemStyle">
+              <el-form-item :label="item.label" :style="itemStyle" v-if="!item.isHidden">
                 <el-date-picker
                   type="daterange"
                   style="width: 100%"

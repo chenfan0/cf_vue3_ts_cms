@@ -2,7 +2,9 @@ import { ILoginStateType } from './login/type'
 import { ISystemType } from './main/system/type'
 
 export interface IRootStateType {
-  name: string
+  entireDepartment: any[]
+  entireRole: any[]
+  entireMenu: []
   login?: ILoginStateType
   system?: ISystemType
 }

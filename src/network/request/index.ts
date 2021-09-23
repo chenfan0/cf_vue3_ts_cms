@@ -95,6 +95,9 @@ class CFRequest {
   patch<T>(config: CFRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
+  delete<T>(config: CFRequestConfig<T>): Promise<T> {
+    return this.request<T>({ ...config, method: 'delete' })
+  }
 }
 
 export default CFRequest

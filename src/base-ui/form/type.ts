@@ -7,6 +7,7 @@ export interface IFormItemDataType {
   placeholder?: string
   options?: any[]
   otherOptions?: any
+  isHidden?: boolean
 }
 
 export interface IFormType {
