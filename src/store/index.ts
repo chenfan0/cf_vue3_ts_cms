@@ -56,7 +56,6 @@ const store = createStore<IRootStateType>({
 
 export function initialLoginStore(store: Store<IRootStateType>) {
   store.dispatch('login/setupLoginStoreAction')
-  store.dispatch('getInitialDataAction')
 }
 
 export default store

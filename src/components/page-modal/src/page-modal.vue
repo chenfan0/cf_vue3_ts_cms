@@ -3,6 +3,7 @@
     <el-dialog v-model="dialogVisible" title="新建" width="30%" center destroy-on-close>
       <span>
         <CFForm v-bind="modalConfig" v-model="modalData" />
+        <slot></slot>
       </span>
       <template #footer>
         <span class="dialog-footer">
@@ -28,6 +29,10 @@ const props = defineProps({
   pageName: {
     type: String,
     required: true
+  },
+  otherInfo: {
+    type: Object,
+    required: true
   }
 })
 
@@ -51,15 +56,17 @@ const store = useStore()
 
 function handleConfirmClick() {
   if (type.value === 'edit') {
+    console.log({ ...props.otherInfo })
+
     store.dispatch('system/editPageDataAction', {
       id: modalData.value.id,
-      editData: { ...editData.value },
+      editData: { ...editData.value, ...props.otherInfo },
       pageName: props.pageName
     })
   }
   if (type.value === 'new') {
     store.dispatch('system/createPageDataAction', {
-      newData: { ...editData.value },
+      newData: { ...editData.value, ...props.otherInfo },
       pageName: props.pageName
     })
   }

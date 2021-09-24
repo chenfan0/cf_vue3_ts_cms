@@ -39,11 +39,14 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
   },
   getters: {},
   actions: {
-    async accountLoginAction({ commit }, payload: ILoginParamsType) {
+    async accountLoginAction({ commit, dispatch }, payload: ILoginParamsType) {
       // 1 实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
       commit('changeToken', loginResult.data.token)
       localCatch.setCatch('token', loginResult.data.token)
+
+      // 发送初始化的请求
+      dispatch('getInitialDataAction', null, { root: true })
 
       // 2 获取用户信息
       const userInfo = await requestUserInfoById(loginResult.data.id)
@@ -59,9 +62,11 @@ const loginModule: Module<ILoginStateType, IRootStateType> = {
       router.push('/main')
     },
     // 初始化store，防止刷新时数据消失
-    setupLoginStoreAction({ commit }) {
+    setupLoginStoreAction({ commit, dispatch }) {
       if (localCatch.getCatch('token')) {
         commit('changeToken', localCatch.getCatch('token'))
+        // 发送初始化的请求
+        dispatch('getInitialDataAction', null, { root: true })
       }
       if (localCatch.getCatch('userInfo')) {
         commit('changeUserInfo', localCatch.getCatch('userInfo'))

@@ -7,7 +7,7 @@ export function usePageModal(newCb?: callBackFn, editCb?: callBackFn) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>()
   function handleEditClick(data: any) {
     pageModalRef.value.modalData = { ...data }
-    editCb && editCb()
+    editCb && editCb(data)
     ;(pageModalRef.value as any).dialogVisible = true
     ;(pageModalRef.value as any).type = 'edit'
   }
