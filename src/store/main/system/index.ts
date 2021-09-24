@@ -2,7 +2,7 @@ import { Module } from 'vuex'
 import { IRootStateType } from '@/store/type'
 import { ISystemType } from './type'
 
-import { getPageListData, deletePageData } from '@/network/system'
+import { getPageListData, deletePageData, editPageData, createPageData } from '@/network/system'
 
 const systemModule: Module<ISystemType, IRootStateType> = {
   namespaced: true,
@@ -65,7 +65,6 @@ const systemModule: Module<ISystemType, IRootStateType> = {
       const commitListName = `change${pageName.slice(0, 1).toUpperCase() + pageName.slice(1)}List`
 
       const pageListResult = await getPageListData(pageUrl, payload.queryInfo)
-      console.log(pageListResult)
 
       commit(commitCountName, pageListResult?.data.totalCount)
       commit(commitListName, pageListResult?.data.list)
@@ -75,6 +74,31 @@ const systemModule: Module<ISystemType, IRootStateType> = {
       const url = `/${pageName}/${id}`
       await deletePageData(url)
       dispatch('getPageListAction', { pageName })
+    },
+    async createPageDataAction({ dispatch, state }, payload: any) {
+      // 1.创建数据的请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      await createPageData(pageUrl, newData)
+
+      // 2.请求最新的数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: state.totalQueryInfo
+      })
+    },
+    async editPageDataAction({ dispatch, state }, payload: any) {
+      // 1.编辑数据的请求
+      const { pageName, editData, id } = payload
+      console.log(editData)
+      const pageUrl = `/${pageName}/${id}`
+      console.log(await editPageData(pageUrl, editData))
+
+      // 2.请求最新的数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: state.totalQueryInfo
+      })
     }
   }
 }

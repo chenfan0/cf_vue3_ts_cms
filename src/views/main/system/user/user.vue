@@ -12,7 +12,7 @@
       @editClick="handleEditClick"
       @newClick="handleNewClick"
     />
-    <PageModal ref="pageModalRef" :modalConfig="modalConfigRef" />
+    <PageModal ref="pageModalRef" :modalConfig="modalConfigRef" pageName="users" />
   </div>
 </template>
 <script lang="ts" setup>
