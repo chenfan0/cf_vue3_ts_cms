@@ -12,9 +12,15 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   // routeFiles.keys() 获取到的是一个数组里面包含了相对于main文件夹的所有ts文件路径
   // require.context 可以对文件夹进行查找
   const routeFiles = require.context('../router/main', true, /\.ts/)
+
+  // ['./analysis/dashboard/dashboard.ts', './analysis/overview/overview.ts', './product/category/category.ts', './product/goods/goods.ts', './story/chat/chat.ts', './story/list/list.ts', './system/department/department.ts', './system/menu/menu.ts', './system/role/role.ts', './system/user/user.ts']
   // routeFiles.keys() 可以获取到相对于第一个参数的文件路径
   routeFiles.keys().forEach((key) => {
-    const route = require('../router/main' + key.slice(1))
+    // const route = require('../router/main' + key.slice(1))
+    const route = routeFiles(key)
+
+    // console.log(route.default)
+
     allRoutes.push(route.default)
   })
 

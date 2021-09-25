@@ -9,6 +9,7 @@ import {
   ElCol,
   ElContainer,
   ElDatePicker,
+  ElDescriptions,
   ElDialog,
   ElDropdown,
   ElForm,
@@ -21,6 +22,7 @@ import {
   ElSelect,
   ElTable,
   ElTabs,
+  ElTag,
   ElTree
 } from 'element-plus'
 
@@ -45,7 +47,9 @@ const elComponent: any[] = [
   ElImage,
   ElDialog,
   ElTree,
-  ElCard
+  ElCard,
+  ElTag,
+  ElDescriptions
 ]
 
 export default function registerElement(app: App): void {
