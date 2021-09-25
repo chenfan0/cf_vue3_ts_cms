@@ -2,7 +2,7 @@
   <div class="page-search">
     <CFForm v-bind="formSearchConfig" v-model="formData">
       <template #header>
-        <h1 class="header">检索</h1>
+        <h1 class="header">查询</h1>
       </template>
       <template #footer>
         <div class="footer">

@@ -4,6 +4,7 @@ import {
   ElAvatar,
   ElBreadcrumb,
   ElButton,
+  ElCard,
   ElCheckbox,
   ElCol,
   ElContainer,
@@ -43,7 +44,8 @@ const elComponent: any[] = [
   ElPagination,
   ElImage,
   ElDialog,
-  ElTree
+  ElTree,
+  ElCard
 ]
 
 export default function registerElement(app: App): void {

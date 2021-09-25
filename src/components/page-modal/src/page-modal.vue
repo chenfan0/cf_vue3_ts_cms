@@ -32,7 +32,7 @@ const props = defineProps({
   },
   otherInfo: {
     type: Object,
-    required: true
+    dafault: () => ({})
   }
 })
 
